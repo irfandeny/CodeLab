@@ -1,6 +1,6 @@
 public class Buku {
     String id, title, author, category;
-    int stock;
+    int stock, daysToReturn;
 
     public Buku(String id, String title, String author, String category, int stock) {
         this.id = id;
@@ -31,5 +31,13 @@ public class Buku {
 
     public void setStock(int stock) {
         this.stock = stock;
+    }
+
+    public int getDaysToReturn() {
+        return daysToReturn;
+    }
+
+    public void setDaysToReturn(int daysToReturn) {
+        this.daysToReturn = daysToReturn;
     }
 }

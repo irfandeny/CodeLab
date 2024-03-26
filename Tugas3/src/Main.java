@@ -2,25 +2,22 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-    public static ArrayList<Buku> bookList;
+    public  ArrayList<Buku> bookList;
     private ArrayList<Student> userStudent = new ArrayList<>();
     private final Scanner scanner;
     private final Admin admin;
+
     public Main() {
         scanner = new Scanner(System.in);
-        admin = new Admin(userStudent);
 
         // Inisialisasi daftar buku
-        bookList = new ArrayList<>();
-        bookList.add(new Buku("388c-e681-9152", "Foxit eSign", "Accessibility", "Author1", 1));
-        bookList.add(new Buku("d95e-8c4-9523", "Nana Buku", "Category", "Author2", 2));
-        bookList.add(new Buku("Sejarah1", "Sejarah", "Sejarah", "Author3", 8));
-        bookList.add(new Buku("Sejarah2", "Sejarah", "Sejarah", "Author3", 8));
+
+        admin = new Admin(userStudent);
 
         // Inisialisasi daftar user student
         userStudent = new ArrayList<>();
         userStudent.add(new Student("Keysya", "202310370311363", "Teknik", "Informatika"));
-        userStudent.add(new Student("irfan", "202310370311377", "Teknik", "Informatika"));
+        userStudent.add(new Student("Irfan", "202310370311377", "Teknik", "Informatika"));
         userStudent.add(new Student("yazid", "202310370310964", "Teknik", "Informatika"));
 
     }
@@ -59,10 +56,11 @@ public class Main {
     }
     //method ceknim
     public void cekNim(String nim) {
+        Student murid = new Student();
         for (Student student : userStudent) {
             if (student.getNim().equals(nim)) {
-                System.out.println("Selamat datang, " + student.getName());
-                Student.displayBook();
+                murid.displayInfo(student);
+                murid.displayBook();
                 menuStudent();
                 return;
             }
@@ -70,7 +68,7 @@ public class Main {
         System.out.println("NIM tidak ditemukan, silakan coba lagi");
     }
     //method menu student
-    public static void menuStudent() {
+    public void menuStudent() {
         Scanner input = new Scanner(System.in);
         Student tam = new Student();
         boolean selesai = false;
@@ -79,20 +77,24 @@ public class Main {
             System.out.println("1. Tampilkan Buku");
             System.out.println("2. Pinjam Buku");
             System.out.println("3. Tampilkan Buku yang dipinjam");
-            System.out.println("4. Logout");
-            System.out.print("Pilihan Opsi (1-4): ");
+            System.out.println("4. Kembalikan buku");
+            System.out.println("5. Logout");
+            System.out.print("Pilihan Opsi (1-5): ");
             int pilihan = input.nextInt();
             switch (pilihan) {
                 case 1:
-                    Student.displayBook();
+                    tam.displayBook();
                     break;
                 case 2:
-                    Student.pinjamBuku();
+                    tam.pinjamBuku();
                     break;
                 case 3:
                     tam.tampilBukuTerpinjam();
                     break;
                 case 4:
+                    tam.returnBooks();
+                    break;
+                case 5:
                     selesai = true;
                     tam.logout();
                     System.out.println("from student menu");

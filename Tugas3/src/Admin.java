@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-class Admin{
+class Admin extends User{
     String inputUsername, inputPassword;
     String adminUsername = "admin";
     String adminPassword = "password";
