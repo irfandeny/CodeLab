@@ -32,9 +32,6 @@ public class Buku {
     public void setStock(int stock) {
         this.stock = stock;
     }
-
-    
-
     public void setDaysToReturn(int daysToReturn) {
         this.daysToReturn = daysToReturn;
     }
