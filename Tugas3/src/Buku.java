@@ -40,4 +40,7 @@ public class Buku {
     public void setDaysToReturn(int daysToReturn) {
         this.daysToReturn = daysToReturn;
     }
+    public void updateStock(int stock) {
+        this.stock = stock;
+    }
 }

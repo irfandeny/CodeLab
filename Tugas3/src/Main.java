@@ -6,6 +6,7 @@ public class Main {
     private ArrayList<Student> userStudent = new ArrayList<>();
     private final Scanner scanner;
     private final Admin admin;
+    User lisBuk = new User();
 
     public Main() {
         scanner = new Scanner(System.in);
@@ -174,7 +175,7 @@ public class Main {
     //method tampilkan daftar buku
     public void tampilkanDaftarBuku() {
         System.out.println("===== Daftar Buku =====");
-        for (Buku buku : bookList) {
+        for (Buku buku : lisBuk.bookList) {
             System.out.println(buku.getId() + "\t||\t" + buku.getTitle() + "\t||\t" + buku.getAuthor() + "\t||\t" + buku.getCategory() + "\t||\t" + buku.getStock());
         }
     }

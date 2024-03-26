@@ -66,13 +66,14 @@ public class Student extends User{
         for (Buku buku : buk2.bookList) {
             if (buku.getId().equals(idBuku)) {
                 bukuygPinjam = buku;
+                buku.setStock(buku.getStock() - 1);
                 break;
             }
         }
         if (bukuygPinjam != null) {
             if (bukuygPinjam.getStock() > 0) {
                 bukuTerpinjam.add(bukuygPinjam);
-                bukuygPinjam.setStock(bukuygPinjam.getStock() - 1);
+                bukuygPinjam.updateStock(bukuygPinjam.getStock() - 1);
                 System.out.println("Buku berhasil dipinjam");
             } else {
                 System.out.println("Buku tidak ditemukan");
@@ -110,7 +111,7 @@ public class Student extends User{
         if(buku != null){
             bukuTerpinjam.remove(buku);
             buku.setDaysToReturn(0);
-            buku.setStock(buku.getStock() + 1);
+            buku.updateStock(buku.getStock() + 1);
             System.out.println("Buku berhasil dikembalikan");
         }else{
             System.out.println("Buku tidak ditemukan");
