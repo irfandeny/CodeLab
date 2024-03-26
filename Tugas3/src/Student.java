@@ -13,12 +13,15 @@ public class Student extends User{
         this.faculty = faculty;
         this.studyProgram = studyProgram;
         bukuTerpinjam = new ArrayList<>();
-        maLog =new ArrayList<>();
+        maLog = new ArrayList<>();
         scanner = new Scanner(System.in);
     }
+
     public Student() {
+
     }
-//getter setter
+
+    //getter setter
     public String getNim() {
         return nim;
     }
@@ -40,81 +43,90 @@ public class Student extends User{
     //method displayBook
     @Override
     public void displayBook() {
-        User buk1 = new User();
         super.displayBook();
-        for (Buku buku : buk1.bookList) {
-            System.out.println(buku.getTitle() + "\t||\t" + buku.getAuthor() + "\t||\t" + buku.getStock());
-        }
     }
+
     //method tampilBukuterpinjam
     public void tampilBukuTerpinjam() {
         if (bukuTerpinjam.isEmpty()) {
             System.out.println("Kamu belum meminjam buku");
         } else {
-            System.out.println("Books yang dipinjam oleh " + name + " (" + nim + "):");
+            System.out.println("Books yang dipinjam oleh :");
             for (Buku buku : bukuTerpinjam) {
-                System.out.println(buku.getId() + "\t||\t" + buku.getTitle() + "\t||\t" + buku.getAuthor() + buku.getDaysToReturn());
+                System.out.println(buku.getId() + "\t||\t" + buku.getTitle() + "\t||\t" + buku.getAuthor());
             }
         }
     }
     //method Pinjam buku
     public void pinjamBuku() {
-        User buk2 = new User();
-        System.out.println("Masukkan Id buku yang ingin dipinjam:");
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Masukkan Id buku yang ingin dipinjam:");
         String idBuku = scanner.nextLine();
-        Buku bukuygPinjam = null;
-        for (Buku buku : buk2.bookList) {
+        Buku bukuygPinjam;
+        for (Buku buku : bookList) {
             if (buku.getId().equals(idBuku)) {
                 bukuygPinjam = buku;
-                buku.setStock(buku.getStock() - 1);
+                if (bukuygPinjam.getStock() > 0) {
+                    bukuygPinjam.setStock(bukuygPinjam.getStock() - 1);
+                    bukuTerpinjam.add(bukuygPinjam);
+                    System.out.println("berapa hari buku akan dipinjam?(maksimal 15 hari)");
+                    int jumlahHariPeminjaman = scanner.nextInt();
+                    for (Buku bukuu : bukuTerpinjam) {
+                        bukuu.setDaysToReturn(jumlahHariPeminjaman);
+                    }
+                    System.out.println("Buku berhasil dipinjam, kamu harus mengembalikannya sebelum " + jumlahHariPeminjaman + " hari.");
+                } else {
+                    System.out.println("Buku tidak tersedia");
+                }
                 break;
-            }
-        }
-        if (bukuygPinjam != null) {
-            if (bukuygPinjam.getStock() > 0) {
-                bukuTerpinjam.add(bukuygPinjam);
-                bukuygPinjam.updateStock(bukuygPinjam.getStock() - 1);
-                System.out.println("Buku berhasil dipinjam");
-            } else {
-                System.out.println("Buku tidak ditemukan");
-            }
-        }
-    }
-//method log out
-    public void logout() {
-        if(bukuTerpinjam.isEmpty()){
-            System.out.println("log out");
-        }else{
-            System.out.println("kamu ingin untuk batal meminjan buku? (Y/N)");
-            String jawab = scanner.next();
-            if(jawab.equalsIgnoreCase("Y")){
-                returnBooks();
+            }else {
+                System.out.println("Id buku tidak tersedia");
             }
         }
     }
 
-    public void returnBooks(){
-        User buk = new User();
-        if(bukuTerpinjam.isEmpty()){
+    //method log out
+    public void logout() {
+        if (bukuTerpinjam.isEmpty()) {
+            System.out.println("log out");
+        } else {
+            System.out.println("kamu ingin untuk batal meminjan buku? (Y/N)");
+            String jawab = scanner.next();
+            if (jawab.equalsIgnoreCase("Y")) {
+                returnBooks();
+            } else {
+                System.out.println("Peminjaman buku berhasil dilakukan");
+                System.out.println("Kamu telah log out");
+            }
+        }
+    }
+
+    public void returnBooks() {
+        if(bukuTerpinjam.isEmpty()) {
             System.out.println("kamu tidak ada buku terpinjam untuk dikembalikan.");
             return;
         }
         System.out.println("Masukkan id buku yang ingin di kembalikan:");
-        String idbuku =scanner.nextLine();
-        Buku buku = null;
-        for(Buku book : buk.bookList){
-            if(book.getId().equals(idbuku)){
-                buku = book;
+        String idBuku = scanner.nextLine();
+        Buku bukuPinjam = null;
+        for(Buku buku : bookList) {
+            if(buku.getId().equals(idBuku)) {
+                bukuPinjam = buku;
                 break;
             }
         }
-        if(buku != null){
-            bukuTerpinjam.remove(buku);
-            buku.setDaysToReturn(0);
-            buku.updateStock(buku.getStock() + 1);
-            System.out.println("Buku berhasil dikembalikan");
-        }else{
-            System.out.println("Buku tidak ditemukan");
+        if(bukuPinjam == null) {
+            System.out.println("Buku tidak ditemukan.");
+            return;
         }
+        for(Buku buku : bukuTerpinjam) {
+            if(buku.getId().equals(idBuku)) {
+                bukuPinjam.setStock(bukuPinjam.getStock() + 1);
+                bukuTerpinjam.remove(buku);
+                System.out.println("Buku berhasil dikembalikan.");
+                return;
+            }
+        }
+        System.out.println("Buku tidak ditemukan di daftar buku terpinjam.");
     }
 }
