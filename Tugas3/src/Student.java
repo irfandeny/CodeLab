@@ -52,10 +52,10 @@ public class Student extends User{
         } else {
             System.out.println("Books yang dipinjam oleh :");
             System.out.println("=========================================================================================================================");
-            System.out.printf("|| %-25s || %-25s || %-25s || %-20s ||", "ID Buku", "Nama Buku", "Penulis", "Kategori");
+            System.out.printf("|| %-25s || %-25s || %-25s || %-20s || %-3s ||", "ID Buku", "Nama Buku", "Penulis", "Kategori","Durasi");
             System.out.println("\n=========================================================================================================================");
             for (Buku buku : bukuTerpinjam) {
-                System.out.printf("|| %-25s || %-25s || %-25s || %-20s ||\n", buku.getId(), buku.getTitle(), buku.getAuthor(),buku.getCategory());
+                System.out.printf("|| %-25s || %-25s || %-25s || %-20s || %-3d||\n", buku.getId(), buku.getTitle(), buku.getAuthor(),buku.getCategory(),buku.getDaysToReturn());
             }
             System.out.print("=========================================================================================================================\n");
         }
@@ -84,8 +84,8 @@ public class Student extends User{
             bukuTerpinjam.add(bukuygPinjam);
             System.out.println("berapa hari buku akan dipinjam?(maksimal 15 hari)");
             int jumlahHariPeminjaman = scanner.nextInt();
-            for (Buku bukuu : bukuTerpinjam) {
-                bukuu.setDaysToReturn(jumlahHariPeminjaman);
+            for (Buku buku : bukuTerpinjam) {
+                buku.setDaysToReturn(jumlahHariPeminjaman);
             }
             System.out.println("Buku berhasil dipinjam, kamu harus mengembalikannya sebelum " + jumlahHariPeminjaman + " hari.");
         } else {
@@ -99,9 +99,10 @@ public class Student extends User{
         if (bukuTerpinjam.isEmpty()) {
             System.out.println("log out");
         } else {
-            System.out.println("kamu ingin untuk batal meminjan buku? (Y/N)");
+            tampilBukuTerpinjam();
+            System.out.println("kamu yakin ingin meminjan buku? (Y/N)");
             String jawab = scanner.next();
-            if (jawab.equalsIgnoreCase("Y")) {
+            if (jawab.equalsIgnoreCase("N")) {
                 returnBooks();
             } else {
                 System.out.println("Peminjaman buku berhasil dilakukan");
