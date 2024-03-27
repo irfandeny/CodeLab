@@ -9,13 +9,9 @@ public class Main {
     public Main() {
         scanner = new Scanner(System.in);
         admin = new Admin(userStudent);
-
+        this.addtembook();
         // Inisialisasi daftar buku
-        bookList = new ArrayList<>();
-        bookList.add(new Buku("388c-e681-9152", "Foxit eSign", "Accessibility", "Author1", 1));
-        bookList.add(new Buku("d95e-8c4-9523", "Nana Buku", "Category", "Author2", 2));
-        bookList.add(new Buku("Sejarah1", "Sejarah", "Sejarah", "Author3", 8));
-        bookList.add(new Buku("Sejarah2", "Sejarah", "Sejarah", "Author3", 8));
+
 
         // Inisialisasi daftar user student
         userStudent = new ArrayList<>();
@@ -23,6 +19,13 @@ public class Main {
         userStudent.add(new Student("irfan", "202310370311377", "Teknik", "Informatika"));
         userStudent.add(new Student("yazid", "202310370310964", "Teknik", "Informatika"));
 
+    }
+    public void addtembook(){
+        bookList = new ArrayList<>();
+        bookList.add(new Buku("388c-e681-9152", "Foxit eSign", "Accessibility", "Author1", 1));
+        bookList.add(new Buku("d95e-8c4-9523", "Nana Buku", "Category", "Author2", 2));
+        bookList.add(new Buku("Sejarah1", "Sejarah", "Sejarah", "Author3", 8));
+        bookList.add(new Buku("Sejarah2", "Sejarah", "Sejarah", "Author3", 8));
     }
     //method menu
     public void menu(Scanner input) {
