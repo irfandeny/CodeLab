@@ -1,6 +1,6 @@
 public class Buku {
     String id, title, author, category;
-    int stock;
+    int stock, daysToReturn;
 
     public Buku(String id, String title, String author, String category, int stock) {
         this.id = id;
@@ -13,11 +13,9 @@ public class Buku {
     public String getId() {
         return id;
     }
-
     public String getTitle() {
         return title;
     }
-
     public String getAuthor() {
         return author;
     }
@@ -28,8 +26,19 @@ public class Buku {
     public int getStock() {
         return stock;
     }
-
+    public void setId(String id) {
+        this.id = id;
+    }
+    public void setTitle(String title) {
+        this.title = title;
+    }
+    public void setAuthor(String author) {
+        this.author = author;
+    }
     public void setStock(int stock) {
         this.stock = stock;
+    }
+    public void setDaysToReturn(int daysToReturn) {
+        this.daysToReturn = daysToReturn;
     }
 }
