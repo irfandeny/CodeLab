@@ -20,6 +20,5 @@ public class Motor extends Kendaraan {
 
     @Override
     public void fly() {
-
     }
 }

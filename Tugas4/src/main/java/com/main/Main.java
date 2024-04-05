@@ -1,17 +1,22 @@
+package com.main;
+
+import data.Admin;
+import data.Student;
+import books.Buku;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
     private final Scanner scanner = new Scanner(System.in);
-    Admin admin = new Admin();
+    Admin admin;
     Student student = new Student();
     public static ArrayList<Student> userStudent;
     public static ArrayList<Buku> bookList;
 
 
     public Main() {
-        //this.admin = new Admin();
+        this.admin = new Admin();
         //this.userStudent = this.admin.getUserStudent();
         this.addTempBook();
         this.addTempStudent();

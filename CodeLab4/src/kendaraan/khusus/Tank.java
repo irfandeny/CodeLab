@@ -21,7 +21,6 @@ public class Tank extends Kendaraan implements ShootAble{
 
     @Override
     public void fly() {
-
     }
 
     @Override

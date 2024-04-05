@@ -1,8 +1,12 @@
+package data;
+
+import util.iMenu;
+import books.Buku
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
 
-class Admin extends User{
+public class Admin extends User implements iMenu{
     String inputUsername, inputPassword;
     String adminUsername = "admin";
     String adminPassword = "password";
@@ -59,7 +63,6 @@ class Admin extends User{
         Main.userStudent.add(new Student(name, nim, faculty, studyProgram));
         System.out.println("Berhasil ditambahkan");
     }
-
     @Override
     public void tambahBuku() {
         System.out.println("Masukkan inputan sesuai permintaan:");
@@ -88,4 +91,8 @@ class Admin extends User{
         return uuidParts[0].substring(0, 4) + "-" + uuidParts[1].substring(0, 4) + "-" + uuidParts[2].substring(0, 4);
     }
 
+    @Override
+    public void Menu() {
+
+    }
 }
