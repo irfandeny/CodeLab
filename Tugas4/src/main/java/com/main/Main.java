@@ -1,39 +1,43 @@
 package com.main;
 
-import data.Admin;
-import data.Student;
-import books.Buku;
+import books.HistoryBook;
+import books.StoryBook;
+import books.TextBook;
+import com.data.Admin;
+import com.data.Student;
+import com.data.User;
+import com.util.iMenu;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
     private final Scanner scanner = new Scanner(System.in);
-    Admin admin;
-    Student student = new Student();
-    public static ArrayList<Student> userStudent;
-    public static ArrayList<Buku> bookList;
-
+    Admin admin = new Admin();
+    String inputUsername, inputPassword;
+    public static ArrayList<Student>  studentList;
 
     public Main() {
-        this.admin = new Admin();
-        //this.userStudent = this.admin.getUserStudent();
         this.addTempBook();
         this.addTempStudent();
-
     }
+
+    public static ArrayList<Student> getStudentList() {
+        return studentList;
+    }
+
     public void addTempBook(){
-        bookList = new ArrayList<>();
-        bookList.add(new Buku("388c-e681-9152", "Foxit eSign", "Accessibility", "Author1", 1));
-        bookList.add(new Buku("d95e-28c4-9523", "Nana Buku", "Category", "Author2", 2));
-        bookList.add(new Buku("sgsg-ytgf-we54", "Sejarah", "Sejarah", "Author3", 8));
-        bookList.add(new Buku("rdgf-rtgf-evgt", "Sejarah", "Sejarah", "Author3", 8));
+        User.bookList = new ArrayList<>();
+        User.bookList.add(new TextBook("388c-e681-9152", "Foxit eSign", "Accessibility", "Author1", 1));
+        User.bookList.add(new TextBook("d95e-28c4-9523", "Nana Buku", "Category", "Author2", 2));
+        User.bookList.add(new StoryBook("sgsg-ytgf-we54", "Sejarah", "Sejarah", "Author3", 8));
+        User.bookList.add(new HistoryBook("rdgf-rtgf-evgt", "Sejarah", "Sejarah", "Author3", 8));
     }
     public void addTempStudent(){
-        userStudent = new ArrayList<>();
-        userStudent.add(new Student("Keysya", "202310370311363", "Teknik", "Informatika"));
-        userStudent.add(new Student("Irfan", "202310370311377", "Teknik", "Informatika"));
-        userStudent.add(new Student("yazid", "202310370310964", "Teknik", "Informatika"));
+        studentList = new ArrayList<>();
+        studentList.add(new Student("Keysya", "202310370311363", "Teknik", "Informatika"));
+        studentList.add(new Student("Irfan", "202310370311377", "Teknik", "Informatika"));
+        studentList.add(new Student("tauk", "202310370310964", "Teknik", "Informatika"));
     }
     //method menu
     public void menu(Scanner input) {
@@ -47,10 +51,10 @@ public class Main {
             int pilihan = input.nextInt();
             switch (pilihan) {
                 case 1:
-                    masukanNim();
+                    inputNim();
                     break;
                 case 2:
-                    admin.loginAsAdmin();
+                    loginAsAdmin();
                     break;
                 case 3:
                     selesai = true;
@@ -62,96 +66,35 @@ public class Main {
         }
     }
     //method masukannim
-    public void masukanNim() {
+    public void inputNim() {
         System.out.print("Enter your NIM : ");
         String nim = scanner.nextLine();
-        cekNim(nim);
+        checkNim(nim);
     }
     //method ceknim
-    public void cekNim(String nim) {
-        for (Student student : userStudent) {
+    public void checkNim(String nim) {
+        iMenu menuStudent = new Student();
+        for (Student student :  studentList) {
             if (student.getNim().equals(nim)) {
                 student.displayInfo(student);
-                student.displayBook();
-                menuStudent();
+                menuStudent.Menu();
                 return;
             }
         }
         System.out.println("NIM tidak ditemukan, silakan coba lagi");
     }
-    //method menu student
-    public void menuStudent() {
-        Scanner input = new Scanner(System.in);
-        boolean selesai = false;
-        while (!selesai) {
-            System.out.println("===== Student Menu =====");
-            System.out.println("1. Tampilkan Buku");
-            System.out.println("2. Pinjam Buku");
-            System.out.println("3. Tampilkan Buku yang dipinjam");
-            System.out.println("4. Kembalikan buku");
-            System.out.println("5. Logout");
-            System.out.print("Pilihan Opsi (1-5): ");
-            int pilihan = input.nextInt();
-            switch (pilihan) {
-                case 1:
-                    student.displayBook();
-                    break;
-                case 2:
-                    student.pinjamBuku();
-                    break;
-                case 3:
-                    student.tampilBukuTerpinjam();
-                    break;
-                case 4:
-                    student.returnBooks();
-                    break;
-                case 5:
-                    selesai = true;
-                    student.logout();
-                    System.out.println("dari student menu");
-                    break;
-                default:
-                    System.out.println("Pilihan tidak tersedia");
-            }
-        }
-    }
-    //method menu admin
-    public void menuAdmin() {
-        Scanner input = new Scanner(System.in);
-        boolean selesai = false;
-        while (!selesai) {
-            System.out.println("===== Admin Menu =====");
-            System.out.println("1. Tambah Buku");
-            System.out.println("2. Hapus Buku");
-            System.out.println("3. Tampilkan Daftar Buku");
-            System.out.println("4. Tampilkan Daftar Mahasiswa");
-            System.out.println("5. Tambah Mahasiswa");
-            System.out.println("6. Log out");
-            System.out.print("Pilihan Opsi (1-6): ");
-            int pilihan = input.nextInt();
-            switch (pilihan) {
-                case 1:
-                    admin.tambahBuku();
-                    break;
-                case 2:
-                    admin.hapusBuku();
-                    break;
-                case 3:
-                    admin.displayBook();
-                    break;
-                case 4:
-                    admin.tampilkanDaftarMahasiswa();
-                    break;
-                case 5:
-                    admin.addStudent();
-                    break;
-                case 6:
-                    selesai = true;
-                    System.out.println("Logging out... from admin menu");
-                    break;
-                default:
-                    System.out.println("Pilihan tidak tersedia");
-            }
+    public void loginAsAdmin() {
+        iMenu menuAdmin = new Admin();
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter username: ");
+        inputUsername = scanner.nextLine();
+        System.out.print("Enter password: ");
+        inputPassword = scanner.nextLine();
+        if (admin.isAdmin(inputUsername, inputPassword)) {
+            System.out.println("Login berhasil. Selamat datang " + inputUsername);
+            menuAdmin.Menu();
+        } else {
+            System.out.println("Username atau password salah. Silakan coba lagi.");
         }
     }
 

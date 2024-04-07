@@ -12,6 +12,9 @@ public class Buku {
         this.stock = stock;
     }
 
+    public void inputBook(){
+    }
+
     public String getId() {
         return id;
     }
@@ -41,7 +44,8 @@ public class Buku {
         this.author = author;
     }
     public void setCategory(String category){
-        this.category=category;}
+        this.category=category;
+    }
     public void setStock(int stock) {
         this.stock = stock;
     }
