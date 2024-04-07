@@ -2,7 +2,6 @@ package com.data;
 
 import books.Buku;
 import com.util.iMenu;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -11,7 +10,6 @@ public class Student extends User implements iMenu {
     private static ArrayList<Buku> borrowedBooks;
     static Scanner scanner;
 
-    //construktor
     public Student(String name, String nim, String faculty, String studyProgram) {
         this.name = name;
         this.nim = nim;
@@ -22,34 +20,59 @@ public class Student extends User implements iMenu {
     }
     public Student(){
     }
-    //getter setter
-    public String getNim() {
-        return nim;
-    }
-    public String getName() {
-        return name;
-    }
-    public String getFaculty(){
-        return faculty;
-    }
-    public String getStudyProgram(){
-        return studyProgram;
-    }
-
-
-    public static ArrayList<Buku> getBorrowedBooks() {
-        return borrowedBooks;
-    }
-
-    public static void setBorrowedBooks(ArrayList<Buku> borrowedBooks) {
-        Student.borrowedBooks = borrowedBooks;
-    }
 
     public void displayInfo(Student student){
         System.out.println("Login sebagai: " + student.getName() + " (" + student.getNim()+")");
     }
 
-    //method choiceBooks
+    @Override
+    public void Menu() {
+        Scanner input = new Scanner(System.in);
+        boolean selesai = false;
+        while (!selesai) {
+            System.out.println("===== Student Menu =====");
+            System.out.println("1. Pinjam Buku");
+            System.out.println("2. Tampilkan Buku yang dipinjam");
+            System.out.println("3. Kembalikan buku");
+            System.out.println("4. Logout");
+            System.out.print("Pilihan Opsi (1-4): ");
+            int pilihan = input.nextInt();
+            switch (pilihan) {
+                case 1:
+                    choiceBooks();
+                    break;
+                case 2:
+                    showBorrowedBooks();
+                    break;
+                case 3:
+                    returnBooks();
+                    break;
+                case 4:
+                    selesai = true;
+                    logout();
+                    System.out.println("dari student menu");
+                    break;
+                default:
+                    System.out.println("Pilihan tidak tersedia");
+            }
+        }
+    }
+
+    public void showBorrowedBooks() {
+        if (getBorrowedBooks().isEmpty()) {
+            System.out.println("Kamu belum meminjam buku");
+        } else {
+            System.out.println("Books yang dipinjam oleh :");
+            System.out.println("=========================================================================================================================");
+            System.out.printf("|| %-20s || %-20s || %-20s || %-20s || %-3s ||", "ID Buku", "Nama Buku", "Penulis", "Kategori","Durasi");
+            System.out.println("\n=========================================================================================================================");
+            for (Buku buku : getBorrowedBooks()) {
+                System.out.printf("|| %-20s || %-20s || %-20s || %-20s || %-7d||\n", buku.getId(), buku.getTitle(), buku.getAuthor(),buku.getCategory(),buku.getDaysToReturn());
+            }
+            System.out.print("=========================================================================================================================\n");
+        }
+    }
+
     public void choiceBooks() {
         super.displayBook();
         Scanner scanner = new Scanner(System.in);
@@ -63,7 +86,6 @@ public class Student extends User implements iMenu {
             }
         }
 
-        // Check if the book ID was found
         if (bukuygPinjam == null) {
             System.out.println("Id buku tidak tersedia");
             return;
@@ -83,24 +105,6 @@ public class Student extends User implements iMenu {
         }
     }
 
-    //method tampilBukuterpinjam
-    public void showBorrowedBooks() {
-        if (getBorrowedBooks().isEmpty()) {
-            System.out.println("Kamu belum meminjam buku");
-        } else {
-            System.out.println("Books yang dipinjam oleh :");
-            System.out.println("=========================================================================================================================");
-            System.out.printf("|| %-20s || %-20s || %-20s || %-20s || %-3s ||", "ID Buku", "Nama Buku", "Penulis", "Kategori","Durasi");
-            System.out.println("\n=========================================================================================================================");
-            for (Buku buku : getBorrowedBooks()) {
-                System.out.printf("|| %-20s || %-20s || %-20s || %-20s || %-7d||\n", buku.getId(), buku.getTitle(), buku.getAuthor(),buku.getCategory(),buku.getDaysToReturn());
-            }
-            System.out.print("=========================================================================================================================\n");
-        }
-    }
-
-
-    //method log out
     public void logout() {
         if (getBorrowedBooks().isEmpty()) {
             System.out.println("log out");
@@ -146,37 +150,23 @@ public class Student extends User implements iMenu {
         System.out.println("Buku tidak ditemukan di daftar buku terpinjam.");
     }
 
-    @Override
-    public void Menu() {
-            Scanner input = new Scanner(System.in);
-            boolean selesai = false;
-            while (!selesai) {
-                System.out.println("===== Student Menu =====");
-                System.out.println("1. Pinjam Buku");
-                System.out.println("2. Tampilkan Buku yang dipinjam");
-                System.out.println("3. Kembalikan buku");
-                System.out.println("4. Logout");
-                System.out.print("Pilihan Opsi (1-4): ");
-                int pilihan = input.nextInt();
-                switch (pilihan) {
-                    case 1:
-                        choiceBooks();
-                        break;
-                    case 2:
-                        showBorrowedBooks();
-                        break;
-                    case 3:
-                        returnBooks();
-                        break;
-                    case 4:
-                        selesai = true;
-                        logout();
-                        System.out.println("dari student menu");
-                        break;
-                    default:
-                        System.out.println("Pilihan tidak tersedia");
-                }
-            }
-        }
+    public String getNim() {
+        return nim;
     }
+    public String getName() {
+        return name;
+    }
+    public String getFaculty(){
+        return faculty;
+    }
+    public String getStudyProgram(){
+        return studyProgram;
+    }
+    public static ArrayList<Buku> getBorrowedBooks() {
+        return borrowedBooks;
+    }
+    public static void setBorrowedBooks(ArrayList<Buku> borrowedBooks) {
+        Student.borrowedBooks = borrowedBooks;
+    }
+}
 

@@ -2,29 +2,29 @@ package com.data;
 
 import books.Buku;
 
-import java.util.ArrayList;
 
 public class User {
-    public static ArrayList<Buku>bookList = new ArrayList<>();
-    ArrayList<Buku> buku = getBookList();
-
-    public static ArrayList<Buku> getBookList() {
-        return bookList;
-    }
-
-    public void addBook(){
-
-    }
+        public static Buku[] bookList = new Buku[100]; // Array untuk menyimpan buku
+        public static int bookCount = 0;
+    //public static ArrayList<Buku> bookList = new ArrayList<>();
 
     public void displayBook() {
         System.out.println("=========================================================================================================================");
         System.out.printf("|| %-25s || %-25s || %-25s || %-20s || %-3s ||", "ID Buku", "Nama Buku", "Penulis", "Kategori", "Stok");
         System.out.println("\n=========================================================================================================================");
-
-        for (Buku buku : bookList) {
-            System.out.printf("|| %-25s || %-25s || %-25s || %-20s || %-3d  ||\n", buku.getId(), buku.getTitle(),buku.getCategory() ,buku.getAuthor(), buku.getStock());
+        for (Buku buku : getBookList()) {
+            if (buku != null) {
+                System.out.printf("|| %-25s || %-25s || %-25s || %-20s || %-3d  ||\n", buku.getId(), buku.getTitle(), buku.getAuthor(), buku.getCategory(), buku.getStock());
+            }
         }
         System.out.print("=========================================================================================================================\n");
+    }
+
+    public static void addBook(String id, String title, String author, String category, int stock){
+        bookList[User.bookCount++] = new Buku(id, title, author, category, stock);
+    }
+    public static Buku[] getBookList() {
+        return bookList;
     }
 
 }

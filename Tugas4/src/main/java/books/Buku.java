@@ -4,15 +4,12 @@ public class Buku {
     String id, title, author, category;
     int stock, daysToReturn;
 
-    public Buku(String id, String title, String category, String author, int stock) {
+    public Buku(String id, String title, String author, String category, int stock) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.category = category;
         this.stock = stock;
-    }
-
-    public void inputBook(){
     }
 
     public String getId() {

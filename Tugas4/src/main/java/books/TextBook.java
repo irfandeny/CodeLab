@@ -2,30 +2,27 @@ package books;
 
 import com.data.Admin;
 import com.data.User;
-
 import java.util.Scanner;
 
 
-public class TextBook extends Buku{
-    private String category;
-    static Scanner scanner;
-
-    public TextBook(String id, String title,  String author, String category, int stock) {
+public class TextBook extends Buku {
+    String category = "Text Book";
+    public TextBook(String id, String title, String author, String category, int stock) {
         super(id, title, author, category, stock);
-        scanner = new Scanner(System.in);
     }
-    @Override
-    public void inputBook(){
-        setCategory("Text Book");
+
+    public void masukanBuku() {
+        Scanner scanner = new Scanner(System.in);
         System.out.print("Masukkan judul buku: ");
         setTitle(scanner.nextLine());
         System.out.print("Masukkan penulis buku: ");
         setAuthor(scanner.nextLine());
         System.out.print("Masukkan stok buku: ");
         setStock(scanner.nextInt());
-        scanner.nextLine();
+        scanner.nextLine(); // Membuang karakter newline
         setId(Admin.generateId());
-        User.bookList.add(new StoryBook(id, getTitle(), getAuthor(), getCategory(), getStock()));
-        System.out.println("Berhasil ditambahkan");
+        setCategory(category);
+        User.bookList[User.bookCount++] = new TextBook(getId(), getTitle(), getAuthor(), getCategory(), getStock());
+        System.out.println("Buku berhasil ditambahkan");
     }
 }

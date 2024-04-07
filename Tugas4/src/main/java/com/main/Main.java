@@ -1,45 +1,21 @@
 package com.main;
 
-import books.HistoryBook;
-import books.StoryBook;
-import books.TextBook;
 import com.data.Admin;
 import com.data.Student;
 import com.data.User;
 import com.util.iMenu;
-
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
     private final Scanner scanner = new Scanner(System.in);
     Admin admin = new Admin();
     String inputUsername, inputPassword;
-    public static ArrayList<Student>  studentList;
 
     public Main() {
         this.addTempBook();
         this.addTempStudent();
     }
 
-    public static ArrayList<Student> getStudentList() {
-        return studentList;
-    }
-
-    public void addTempBook(){
-        User.bookList = new ArrayList<>();
-        User.bookList.add(new TextBook("388c-e681-9152", "Foxit eSign", "Accessibility", "Author1", 1));
-        User.bookList.add(new TextBook("d95e-28c4-9523", "Nana Buku", "Category", "Author2", 2));
-        User.bookList.add(new StoryBook("sgsg-ytgf-we54", "Sejarah", "Sejarah", "Author3", 8));
-        User.bookList.add(new HistoryBook("rdgf-rtgf-evgt", "Sejarah", "Sejarah", "Author3", 8));
-    }
-    public void addTempStudent(){
-        studentList = new ArrayList<>();
-        studentList.add(new Student("Keysya", "202310370311363", "Teknik", "Informatika"));
-        studentList.add(new Student("Irfan", "202310370311377", "Teknik", "Informatika"));
-        studentList.add(new Student("tauk", "202310370310964", "Teknik", "Informatika"));
-    }
-    //method menu
     public void menu(Scanner input) {
         boolean selesai = false;
         while (!selesai) {
@@ -65,24 +41,36 @@ public class Main {
             }
         }
     }
-    //method masukannim
+
     public void inputNim() {
         System.out.print("Enter your NIM : ");
         String nim = scanner.nextLine();
         checkNim(nim);
     }
-    //method ceknim
+
     public void checkNim(String nim) {
         iMenu menuStudent = new Student();
-        for (Student student :  studentList) {
-            if (student.getNim().equals(nim)) {
-                student.displayInfo(student);
-                menuStudent.Menu();
-                return;
-            }
+        Student student = admin.getStudentByNim(nim);
+        if (student != null) {
+            student.displayInfo(student);
+            menuStudent.Menu();
+            return;
         }
         System.out.println("NIM tidak ditemukan, silakan coba lagi");
     }
+
+    public void addTempBook(){
+        User.addBook("388c-e681-9152", "Foxit eSign", "Author1", "Accessibility", 1);
+        User.addBook("d95e-28c4-9523", "Nana Buku", "Author2", "Category", 2);
+        User.addBook("sgsg-ytgf-we54", "Sejarah", "Author3", "Sejarah", 8);
+        User.addBook("rdgf-rtgf-evgt", "Sejarah", "Author3","Sejarah" , 8);
+    }
+    public void addTempStudent(){
+        admin.addedStudent("Keysya", "202310370311363", "Teknik", "Informatika");
+        admin.addedStudent("Irfan", "202310370311377", "Teknik", "Informatika");
+        admin.addedStudent("tauk", "202310370310964", "Teknik", "Informatika");
+    }
+
     public void loginAsAdmin() {
         iMenu menuAdmin = new Admin();
         Scanner scanner = new Scanner(System.in);
@@ -105,6 +93,5 @@ public class Main {
         Scanner input = new Scanner(System.in);
         lib.menu(input);
         input.close();
-
     }
 }
