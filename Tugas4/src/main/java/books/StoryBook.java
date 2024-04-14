@@ -19,7 +19,7 @@ public class StoryBook extends Buku {
         setAuthor(scanner.nextLine());
         System.out.print("Masukkan stok buku: ");
         setStock(scanner.nextInt());
-        scanner.nextLine(); // Membuang karakter newline
+        scanner.nextLine();
         setId(Admin.generateId());
         setCategory(category);
         User.bookList[User.bookCount++] = new StoryBook(getId(), getTitle(), getAuthor(), getCategory(), getStock());
