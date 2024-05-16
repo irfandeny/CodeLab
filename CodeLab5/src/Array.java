@@ -4,30 +4,31 @@ import java.util.Scanner;
 public class Array {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<String> nama = new ArrayList<>();
+        ArrayList<String> namaMahasiswa = new ArrayList<>();
 
-
+        int i = 1;
         while (true) {
-            int i = nama.size();
-            System.out.print("Masukkan nama ke-" + (i + 1) + ":");
-            String namaInput = scanner.nextLine();
+            System.out.print("Masukkan nama ke-" + i + ": ");
+            String nama = scanner.nextLine();
 
-            try {
-                if (namaInput.isEmpty()) {
+            if (nama.trim().isEmpty()) {
+                try {
                     throw new IllegalArgumentException("Nama tidak boleh kosong");
+                } catch (IllegalArgumentException e) {
+                    System.out.println(e.getMessage());
+                    continue;
                 }
-                if (!namaInput.equalsIgnoreCase("selesai")){
-                    nama.add(namaInput);
-                }else {
-                    break;
-                }
-            }catch (IllegalArgumentException e){
-                System.err.println("Error:"+ e.getMessage());
             }
+            if (nama.equalsIgnoreCase("selesai")) {
+                break;
+            }
+            namaMahasiswa.add(nama);
+            i++;
         }
+
         System.out.println("\nDaftar mahasiswa yang diinputkan:");
-        for (String msiswa : nama){
-            System.out.println("-" + msiswa);
+        for (String nama : namaMahasiswa) {
+            System.out.println(nama);
         }
-    }
+    }    
 }
