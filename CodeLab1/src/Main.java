@@ -33,3 +33,47 @@ public class Main {
         System.out.println("Umur Anda: " + periode.getYears() + " tahun " + periode.getMonths() + " bulan " + periode.getDays() + " hari");
     }
 }
+
+public class PalindromeChecker {
+    static boolean isPalindrome(String word) {
+        int left = 0;
+        int right = word.length() - 1;
+
+        while (left < right) {
+            if (word.charAt(left) != word.charAt(right)) {
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
+    }
+
+    public static void main(String[] args) {
+        String word = "radar";
+        System.out.println("Is " + word + " a palindrome? " + isPalindrome(word));
+    }
+}
+
+public class Bintang {
+    public static void main(String[] args){
+        int angka [] = {1,2,3,4,5};
+
+        for (int i = 0; i < angka.length;i++){
+
+            StringBuilder result = new StringBuilder();
+            for (int j = 1; j <= angka[i] ; j++){
+            result.append(j);
+        }
+        int bintang = 5 - angka[i];
+            for (int k = 0; k < bintang; k++){
+                result.append("*");
+            }
+            System.out.println(result);
+        }
+
+
+
+
+    }
+}
